@@ -1,0 +1,33 @@
+package com.citi.assisgnment;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class assignment1GoTo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "Driver/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.get("https://www.goto.com/meeting/");
+		driver.findElement(By.className("truste-banner-close")).click();
+		driver.findElement(By.partialLinkText("Try")).click();
+		
+		driver.findElement(By.name("FirstName")).sendKeys("John");
+		driver.findElement(By.name("LastName")).sendKeys("Wick");
+		driver.findElement(By.name("Email")).sendKeys("John@email.com");
+		
+		Select selectSize = new Select(driver.findElement(By.id("CompanySize")));
+		
+		selectSize.selectByVisibleText("10 - 99");
+		
+		driver.findElement(By.xpath("//button[@data-button = \"trial-submit\"]")).click();
+	}
+
+}

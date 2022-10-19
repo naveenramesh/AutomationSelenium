@@ -1,0 +1,24 @@
+package com.citi.assisgnment;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Assignment4Tabs {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver", "Driver/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.get("https://www.online.citibank.co.in/");
+		
+		driver.findElement(By.xpath("//a[@title = 'Close']")).click();
+		driver.findElement(By.className("txtSign")).click();
+		driver.close();
+		
+	}
+}

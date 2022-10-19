@@ -1,0 +1,42 @@
+package com.citi.assisgnment;
+
+import java.time.Duration;
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class Assignment4Tabs {
+
+	public static void main(String[] args) {
+		
+		System.setProperty("webdriver.chrome.driver", "Driver/chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		Actions action = new Actions(driver);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.get("https://www.online.citibank.co.in/");
+		
+		driver.findElement(By.xpath("//a[@title = 'Close']")).click();
+		driver.findElement(By.className("txtSign")).click();
+		
+		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(1));
+		
+		driver.findElement(By.xpath("//div[@onclick = 'ForgotUserID();']")).click();
+		
+//		driver.switchTo().defaultContent();
+//		tabs = new ArrayList<String>(driver.getWindowHandles());
+//		driver.switchTo().window(tabs.get(1));
+		
+		Select account = new Select(driver.findElement(By.id("accountType")));
+		account.selectByVisibleText("Credit Card");
+		
+		driver.findElement(By.className("citiCard1")).sendKeys("4545 5656 8887 9998");
+		driver.close();
+		
+	}
+}
