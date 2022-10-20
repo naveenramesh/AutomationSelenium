@@ -22,20 +22,20 @@ public class LoginTest extends AutomationWrapper {
 
 	
 
-	@Test
-	public void validCredentialTest() {
-		driver.findElement(By.name("username")).sendKeys("Admin");
-		driver.findElement(By.name("password")).sendKeys("admin123");
+	@Test(dataProvider = "commonDataProvider", dataProviderClass = DataUtils.class)
+	public void validCredentialTest(String username, String password, String expected) {
+		driver.findElement(By.name("username")).sendKeys(username);
+		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.cssSelector("button[type='submit']")).click();
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Admin']")));
 
 		String actualvalue = driver.findElement(By.xpath("//h5[text()='Employee Information']")).getText();
-		Assert.assertEquals(actualvalue, "Employee Information");
+		Assert.assertEquals(actualvalue, expected);
 	}
 
-	@Test(dataProvider = "invalidData",dataProviderClass = DataUtils.class)
+	@Test(dataProvider = "commonDataProvider",dataProviderClass = DataUtils.class)
 	public void invalidCredentialTest(String username, String password, String expected) {
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
